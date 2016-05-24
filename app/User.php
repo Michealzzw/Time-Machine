@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -27,8 +28,16 @@ class User extends Authenticatable
   	{
   		return $this->hasMany('App\User_event_type','user_id','id')->get();
   	}
+    public function getEventList()
+  	{
+  		return $this->hasMany('App\User_event','user_id','id')->get();
+  	}
     public function getEventNow()
   	{
   		return $this->hasOne('App\User_now_event','user_id','id')->first();
   	}
+    public function getEventMessage($event_id)
+    {
+      return DB::table('user_events')->select('*')->whereUser_id($this->id)->whereEvent_id($event_id)->first();
+    }
 }

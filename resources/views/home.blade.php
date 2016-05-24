@@ -11,10 +11,11 @@
                     欢迎, {{Auth::user()->name}}!
                     <br>
                     <?php
-                    if (isset($now_event_id))
+                    if (isset($event_now))
                     {
-                      echo '你现在正在进行'.$now_event_id;
-                      echo "<a href=\"/endEvent?event_id=".$now_event_id."\">结束当前事件</a>";
+                      echo '你现在正在进行 <label>'.$event_now->event_name."</label> ";
+                      echo "<a href=\"/endEvent?event_id=".$event_now->event_id."\">结束当前事件</a>";
+                      echo "<a href=\"/selectEventType\">创建已完成事件</a>";
                     }
                     else
                     {

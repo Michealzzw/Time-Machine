@@ -49,7 +49,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/home') }}">Home</a></li>
                     <li><a href="{{ url('/home') }}">Friends</a></li>
-                    <li><a href="{{ url('/home') }}">Manage My Events</a></li>
+                    <li><a href="{{ url('/events') }}">Manage My Events</a></li>
                     <li><a href="{{ url('/home') }}">Statistics</a></li>
                     <li><a href="{{ url('/home') }}">My invitation</a></li>
                 </ul>

@@ -26,14 +26,14 @@ class EventSystem extends Migration
 
       Schema::create('events', function (Blueprint $table) {
           $table->increments('id');
-          $table->string('note', 200);
+          $table->string('note', 200)->nullable();
           $table->string('name', 100);
           $table->integer('event_type_id')->unsigned();
-          $table->integer('host_user_id')->unsigned();
+          $table->integer('host_user_id')->unsigned()->nullable();
           $table->foreign('host_user_id')
                 ->references('id')
                 ->on('users')
-                ->onDelete("cascade");
+                ->onDelete("set null");
           $table->foreign('event_type_id')
                 ->references('id')
                 ->on('event_types')
@@ -46,9 +46,9 @@ class EventSystem extends Migration
       Schema::create('user_events', function (Blueprint $table) {
           $table->integer('user_id')->unsigned();
           $table->integer('event_id')->unsigned();
-          $table->string('event_type_name', 100);
+          $table->string('event_name', 100);
           $table->dateTime("start_time");
-          $table->dateTime("end_time");
+          $table->dateTime("end_time")->nullable();
           $table->timestamps();
           $table->primary(['user_id', 'event_id']);
           $table->index('start_time');
@@ -64,7 +64,7 @@ class EventSystem extends Migration
       Schema::create('user_now_events', function (Blueprint $table) {
           $table->integer('user_id')->unsigned()->unique();
           $table->integer('event_id')->unsigned();
-          $table->string('event_type_name', 100);
+          $table->string('event_name', 100);
           $table->timestamps();
           $table->foreign('user_id')
                 ->references('id')

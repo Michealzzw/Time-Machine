@@ -22,3 +22,7 @@ Route::get('/selectEventType', 'HomeController@selectEventType');
 Route::get('/showEventType', 'HomeController@showEventType');
 Route::get('/showEventType/{id}', 'HomeController@showFromParentEventType');
 Route::get('/addEventType/{id}', 'HomeController@addEventType');
+Route::get('/completeEvent', 'HomeController@completeEvent');
+Route::post('/addEvent', 'HomeController@addEvent');
+Route::get('/endEvent', 'HomeController@endEvent');
+Route::get('/events', 'HomeController@showEvents');

@@ -16,8 +16,8 @@
                     {
                       echo "<ul>";
                       for ($i = 0;$i<$num;$i++)
-                        echo "<li><a href=\"/addEvent?event_type_id=".$eventTypeList[$i]->event_type_id.
-                        "&event_name=".$eventTypeList[$i]->event_type_name . "\">".$eventTypeList[$i]->event_type_name."</a></li>";
+                        echo "<li><a href=\"/completeEvent?event_type_id=".$eventTypeList[$i]->event_type_id.
+                        "&event_type_name=".$eventTypeList[$i]->event_type_name . "\">".$eventTypeList[$i]->event_type_name."</a></li>";
                       echo "</ul>";
                     }
                     else echo "你还没有任何事件类型";

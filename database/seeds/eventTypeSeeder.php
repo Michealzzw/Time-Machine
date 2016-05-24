@@ -47,12 +47,12 @@ class eventTypeSeeder extends Seeder
           ]);
 
           $tp3 = Event_type::create([
-            'name' => '英语',
+            'name' => '英语自习',
             'parent_event_type_id' => $tp2->id
             ]);
 
             $tp4 = Event_type::create([
-              'name' => 'GRE',
+              'name' => 'GRE学习',
               'parent_event_type_id' => $tp3->id
               ]);
 
@@ -77,7 +77,7 @@ class eventTypeSeeder extends Seeder
                 ]);
 
           $tp4 = Event_type::create([
-            'name' => 'Toefl',
+            'name' => 'Toefl学习',
             'parent_event_type_id' => $tp3->id
             ]);
 
