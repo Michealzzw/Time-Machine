@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::auth();
+
+Route::get('/home', 'HomeController@index');
+Route::get('/selectEventType', 'HomeController@selectEventType');
+Route::get('/showEventType', 'HomeController@showEventType');
+Route::get('/showEventType/{id}', 'HomeController@showFromParentEventType');
+Route::get('/addEventType/{id}', 'HomeController@addEventType');

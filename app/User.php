@@ -23,4 +23,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    public function getEventTypeList()
+  	{
+  		return $this->hasMany('App\User_event_type','user_id','id')->get();
+  	}
+    public function getEventNow()
+  	{
+  		return $this->hasOne('App\User_now_event','user_id','id')->first();
+  	}
 }
