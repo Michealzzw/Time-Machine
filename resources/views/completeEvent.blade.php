@@ -77,6 +77,7 @@ document.getElementById("start_time").value=getNowTime();
                         <label id="endForm" ></label><input type="datetime" name="end_time" id="end_time" value="" style="display:none"><br>
                         <label id="endForm" >备注:</label><input type="text" name="note" id="note"><br>
                         <input type="hidden" name="event_type_id" value="<?php echo $event_type_id;?>">
+                        <input type="hidden" name="event_type_name" value="<?php echo $event_type_name;?>">
                         <div id = "invitation">
                         <?php
                         $num = count($userFriendList);

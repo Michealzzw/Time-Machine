@@ -36,6 +36,9 @@ class HomeController extends Controller
      */
     public function index($message=null)
     {
+
+      date_default_timezone_set('PRC');
+      //return date("Y-m-d H:i:s",time());
         $event_now = Auth::user()->getEventNow();
         $event_invitations = DB::select('select events.id as event_id, users.name as user_name, events.name as event_name from users,events,event_invitations as invite
         where users.id=events.host_user_id and events.id = invite.event_id and invite.user_id='.Auth::id());
@@ -119,7 +122,7 @@ class HomeController extends Controller
         if ($tmp==null) return view('home');
         $user_eventPara=[
           'event_name' => $event->name,
-          'start_time' => time(),
+          'start_time' => date("Y-m-d H:i:s",time()),
           'user_id' => Auth::id(),
           'event_id' =>$event_id
         ];
@@ -142,11 +145,29 @@ class HomeController extends Controller
     public function addEvent()
     {
       $input = Input::all();
+      $userFriendList = array();
+      $tmp = Auth::user()->getFriendList();
+      for ($i = 0;$i<count($tmp);$i++)
+        $userFriendList[$tmp[$i]->friend_user_id] = $tmp[$i];
+      $tmp = DB::select("select user_friends.friend_user_id,user_friends.friend_user_name,user_now_events.event_name,user_friends.confirmed from user_friends,user_now_events where user_friends.confirmed = true and user_friends.friend_user_id=user_now_events.user_id and user_friends.user_id=?",[Auth::id()]);
+      for ($i = 0;$i<count($tmp);$i++)
+        $userFriendList[$tmp[$i]->friend_user_id] = $tmp[$i];
+      $event_now = Auth::user()->getEventNow();
+      if ($event_now!=null)
+      {
+         $input['event_now']=$event_now;
+      }
+      else
+      {
+        $input['userFriendList']=$userFriendList;
+      }
+      date_default_timezone_set('PRC');
+
       //return $input;
       if (!$this->time_formal_check($input['start_time']))
       {
         $input['message'] = "Start time error Time Formal.";
-        return view('addEvent',$input);
+        return view('completeEvent',$input);
       }
       if ($input['end_time']!=null&&!$this->time_formal_check($input['end_time']))
       {
@@ -155,7 +176,8 @@ class HomeController extends Controller
       }
       $date1= date("Y-m-d H:i:s",strtotime($input['start_time']));
       if ($input['end_time']!=null) $date2= date("Y-m-d H:i:s",strtotime($input['end_time']));
-      if (($input['end_time']!=null&&time()<$date2)||time()<$date1)
+      //return array($date1,$date2,date("Y-m-d H:i:s",time()),date("Y-m-d H:i:s",time())<$date2);
+      if (($input['end_time']!=null&&date("Y-m-d H:i:s",time())<$date2)||date("Y-m-d H:i:s",time())<$date1)
       {
         $input['message'] = "Start or End in the future.";
         return view('completeEvent',$input);
@@ -250,8 +272,8 @@ class HomeController extends Controller
         $date= date("Y-m-d H:i:s",strtotime($input['end_time']));
         if ($date<$event_now_message->start_time)
         return view('endEvent',['message'=>"End time before start time (".$event_now_message->start_time.")"]);
-        if ($date>time())
-        return view('endEvent',['message'=>"End in the future ( now time ".time().")"]);
+        if ($date>date("Y-m-d H:i:s",time()))
+        return view('endEvent',['message'=>"End in the future ( now time ".date("Y-m-d H:i:s",time()).")"]);
         $user_id = Auth::id();
         DB::transaction(function() use($user_id,$event_now_message,$date)
         {
