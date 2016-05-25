@@ -13,7 +13,7 @@
     tmp.innerHTML = "开始时间: ";
     tmp = document.getElementById("endForm");
     tmp.innerHTML = "";
-
+    document.getElementById("invitation").style.display="inline";
 
     document.getElementById("start_time").style.display="inline";
     document.getElementById("start_time").value=getNowTime();
@@ -40,7 +40,7 @@ document.getElementById("start_time").value=getNowTime();
     tmp.innerHTML = "开始时间: ";
     tmp = document.getElementById("endForm");
     tmp.innerHTML = "结束时间: ";
-
+    document.getElementById("invitation").style.display="none";
     document.getElementById("start_time").style.display="inline";
     document.getElementById("start_time").value=getNowTime();
 
@@ -77,6 +77,30 @@ document.getElementById("start_time").value=getNowTime();
                         <label id="endForm" ></label><input type="datetime" name="end_time" id="end_time" value="" style="display:none"><br>
                         <label id="endForm" >备注:</label><input type="text" name="note" id="note"><br>
                         <input type="hidden" name="event_type_id" value="<?php echo $event_type_id;?>">
+                        <div id = "invitation">
+                        <?php
+                        $num = count($userFriendList);
+                        if ($num!=0)
+                        {
+                          echo "你可以邀请你的朋友一起：";
+                          echo "<ul>";
+                          foreach ($userFriendList as $friend)
+                          {
+                            if ($friend->confirmed)
+                            {
+                              echo "<li>";
+                              if (isset($friend->event_name))
+                              echo "<label><input type=checkbox name=\"".$friend->friend_user_id."\" id=\"invitationList\" value=\"".$friend->friend_user_id."\"> ".$friend->friend_user_name." 他在".$friend->event_name." </label></li>";
+                              else
+                              echo "<label><input type=checkbox name=\"".$friend->friend_user_id."\" id=\"invitationList\" value=\"".$friend->friend_user_id."\"> ".$friend->friend_user_name."</label></li>";
+                            }
+                          }
+                          echo "</ul>";
+                        }
+                        else echo "你还没有任何朋友！";
+                        echo "<br>";
+                        ?>
+                      </div>
                         <input type="submit" value="建立事件">
                     </form>
                     <a href="javascript:history.back(-1)">返回上一页</a>

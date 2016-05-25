@@ -5,5 +5,5 @@ FOR each ROW
 	SELECT new.user_id, events.event_type_id, event_types.name, now(), now() FROM event_types,events
 	WHERE
 		new.event_id=events.id AND events.event_type_id=event_types.id 
-		AND new.event_id NOT IN 
+		AND events.event_type_id NOT IN 
 			(SELECT event_type_id FROM user_event_types WHERE user_id=new.user_id);

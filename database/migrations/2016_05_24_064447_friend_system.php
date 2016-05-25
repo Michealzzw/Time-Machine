@@ -15,6 +15,7 @@ class FriendSystem extends Migration
       Schema::create('user_friends', function (Blueprint $table) {
           $table->integer('user_id')->unsigned();
           $table->integer('friend_user_id')->unsigned();
+          $table->string('friend_user_name');
           $table->boolean('confirmed');
           $table->timestamps();
           $table->primary(['user_id', 'friend_user_id']);
@@ -30,6 +31,7 @@ class FriendSystem extends Migration
       Schema::create('user_friend_requests', function (Blueprint $table) {
           $table->integer('user_id')->unsigned();
           $table->integer('request_user_id')->unsigned();
+          $table->string('request_user_name');
           $table->boolean('confirmed');
           $table->timestamps();
           $table->primary(['user_id', 'request_user_id']);

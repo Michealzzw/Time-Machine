@@ -69,7 +69,7 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
-        DB::statement("CREATE VIEW user_"+$user->id+"_view AS SELECT * FROM user_events WHERE user_id = "+$user->id);
+        DB::statement("CREATE VIEW user_".$user->id."_view AS SELECT * FROM user_events WHERE user_id = ".$user->id);
         return $user;
     }
 }

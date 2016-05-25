@@ -16,6 +16,7 @@
                     if ($num!=0)
                     {
                       echo "<table border=1>";
+                      echo "<tr><td>事件名</td><td>开始时间</td><td>结束时间</td></tr>";
                       for ($i = 0;$i<$num;$i++)
                       {
                         echo "<tr>";

@@ -22,7 +22,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token','created_at','updated_at'
     ];
     public function getEventTypeList()
   	{
@@ -30,7 +30,18 @@ class User extends Authenticatable
   	}
     public function getEventList()
   	{
-  		return $this->hasMany('App\User_event','user_id','id')->get();
+  		//return $this->hasMany('App\User_event','user_id','id')->get();
+      return DB::table('user_'.$this->id."_view")->select('*')->get();
+  	}
+    public function getFriendList()
+  	{
+  		return $this->hasMany('App\User_friend','user_id','id')->get();
+      //return DB::table('user_'.$this->id."_view")->select('*')->get();
+  	}
+    public function getFriendRequestList()
+  	{
+  		return $this->hasMany('App\User_friend_request','user_id','id')->get();
+      //return DB::table('user_'.$this->id."_view")->select('*')->get();
   	}
     public function getEventNow()
   	{

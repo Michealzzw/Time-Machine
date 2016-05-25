@@ -13,8 +13,8 @@ class InvitationSystem extends Migration
     public function up()
     {
       Schema::create('event_invitations', function (Blueprint $table) {
+        $table->integer('user_id')->unsigned();
           $table->integer('event_id')->unsigned();
-          $table->integer('user_id')->unsigned();
           $table->foreign('event_id')
                 ->references('id')
                 ->on('events')
@@ -24,6 +24,7 @@ class InvitationSystem extends Migration
                 ->on('users')
                 ->onDelete("cascade");;
           $table->boolean('confirmed');
+          $table->index('user_id');
           $table->timestamps();
       });
     }
