@@ -31,7 +31,7 @@ class User extends Authenticatable
     public function getEventList()
   	{
   		//return $this->hasMany('App\User_event','user_id','id')->get();
-      return DB::table('user_'.$this->id."_view")->select('*')->get();
+      return DB::table('user_'.$this->id."_view")->select('*')->orderBy('start_time','DESC')->take(100)->get();
   	}
     public function getFriendList()
   	{
