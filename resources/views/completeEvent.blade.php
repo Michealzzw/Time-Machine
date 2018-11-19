@@ -80,6 +80,8 @@ document.getElementById("start_time").value=getNowTime();
                         <input type="hidden" name="event_type_name" value="<?php echo $event_type_name;?>">
                         <div id = "invitation">
                         <?php
+                        if (isset($userFriendList))
+                        {
                         $num = count($userFriendList);
                         if ($num!=0)
                         {
@@ -100,6 +102,7 @@ document.getElementById("start_time").value=getNowTime();
                         }
                         else echo "你还没有任何朋友！";
                         echo "<br>";
+                      }
                         ?>
                       </div>
                         <input type="submit" value="建立事件">
